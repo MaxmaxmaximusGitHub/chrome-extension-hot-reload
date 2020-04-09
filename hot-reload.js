@@ -1,5 +1,5 @@
 // SETTINGS
-const CHECK_FILE_CHANGES_INTERVAL = 500
+const CHECK_INTERVAL = 500
 const RELOAD_ACTIVE_TABS = true
 
 
@@ -48,7 +48,7 @@ const watchChanges = (dir, lastTimestamp) => {
 
 			setTimeout(() => {
 				watchChanges(dir, timestamp)
-			}, CHECK_FILE_CHANGES_INTERVAL)
+			}, CHECK_INTERVAL)
 
 		} else {
 			reload()
