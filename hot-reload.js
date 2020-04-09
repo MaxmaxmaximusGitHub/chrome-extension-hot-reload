@@ -4,7 +4,6 @@ const RELOAD_ACTIVE_TABS = true
 
 
 function filesInDirectory(dir) {
-
 	return new Promise((resolve) =>
 		dir.createReader().readEntries((entries) =>
 
@@ -17,7 +16,6 @@ function filesInDirectory(dir) {
 			.then(resolve)
 		)
 	)
-
 }
 
 
@@ -44,7 +42,6 @@ function reload() {
 
 
 function watchChanges(dir, lastTimestamp) {
-
 	timestampForFilesInDirectory(dir).then((timestamp) => {
 		if (!lastTimestamp || (lastTimestamp === timestamp)) {
 
@@ -56,7 +53,6 @@ function watchChanges(dir, lastTimestamp) {
 			reload()
 		}
 	})
-
 }
 
 
