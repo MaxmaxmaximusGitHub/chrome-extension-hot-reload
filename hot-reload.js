@@ -4,8 +4,9 @@ const RELOAD_ACTIVE_TABS = true
 
 
 function filesInDirectory(dir) {
-	return new Promise(resolve =>
-		dir.createReader().readEntries(entries =>
+
+	return new Promise((resolve) =>
+		dir.createReader().readEntries((entries) =>
 
 			Promise.all(entries.filter(e => e.name[0] !== '.').map(e =>
 				e.isDirectory
@@ -16,11 +17,12 @@ function filesInDirectory(dir) {
 			.then(resolve)
 		)
 	)
+
 }
 
 
 function timestampForFilesInDirectory(dir) {
-	return filesInDirectory(dir).then(files => {
+	return filesInDirectory(dir).then((files) => {
 		return files.map(f => f.name + f.lastModifiedDate).join()
 	})
 }
@@ -33,7 +35,7 @@ function reload() {
 	}
 
 	chrome.tabs.query({active: true}, (tabs) => {
-		tabs.forEach(tab => {
+		tabs.forEach((tab) => {
 			chrome.tabs.reload(tab.id)
 		})
 		chrome.runtime.reload()
@@ -43,7 +45,7 @@ function reload() {
 
 function watchChanges(dir, lastTimestamp) {
 
-	timestampForFilesInDirectory(dir).then(timestamp => {
+	timestampForFilesInDirectory(dir).then((timestamp) => {
 		if (!lastTimestamp || (lastTimestamp === timestamp)) {
 
 			setTimeout(() => {
