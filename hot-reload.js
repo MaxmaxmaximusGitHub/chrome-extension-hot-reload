@@ -3,7 +3,7 @@ const CHECK_INTERVAL = 500
 const RELOAD_ACTIVE_TABS = true
 
 
-const filesInDirectory = (dir) => {
+function filesInDirectory(dir) {
 	return new Promise(resolve =>
 		dir.createReader().readEntries(entries =>
 
@@ -19,14 +19,14 @@ const filesInDirectory = (dir) => {
 }
 
 
-const timestampForFilesInDirectory = (dir) => {
+function timestampForFilesInDirectory(dir) {
 	return filesInDirectory(dir).then(files => {
 		return files.map(f => f.name + f.lastModifiedDate).join()
 	})
 }
 
 
-const reload = () => {
+function reload() {
 	if (!RELOAD_ACTIVE_TABS) {
 		chrome.runtime.reload()
 		return
@@ -41,7 +41,7 @@ const reload = () => {
 }
 
 
-const watchChanges = (dir, lastTimestamp) => {
+function watchChanges(dir, lastTimestamp) {
 
 	timestampForFilesInDirectory(dir).then(timestamp => {
 		if (!lastTimestamp || (lastTimestamp === timestamp)) {
@@ -58,6 +58,7 @@ const watchChanges = (dir, lastTimestamp) => {
 }
 
 
+// start
 chrome.management.getSelf((self) => {
 	if (self.installType === 'development') {
 		chrome.runtime.getPackageDirectoryEntry(dir => watchChanges(dir))
